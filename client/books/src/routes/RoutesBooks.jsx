@@ -6,6 +6,8 @@ import { NavBooks } from "../layout/navBooks/NavBooks";
 import { UserRegister } from "../auth/userRegister/UserRegister";
 import { useRoutesBooks } from "./useRoutesBooks";
 import { UserLogin } from "../auth/userLogin/UserLogin";
+import { UserProfile } from "../views/userProfile/UserProfile";
+import { EditProfile } from "../views/userProfile/editProfile/EditProfile";
 
 export const RoutesBooks = () => {
   const { ruta } = useRoutesBooks();
@@ -18,7 +20,10 @@ export const RoutesBooks = () => {
       <Routes>
         <Route path={ruta.home} element={<HomeBooks />} />
         <Route path={ruta.login} element={<UserLogin />} />
+        <Route path={ruta.logout} element={<UserLogin />} />
         <Route path={ruta.registro} element={<UserRegister />} />
+        <Route path={ruta.perfil} element={<UserProfile />} />
+        <Route path={ruta.editarPerfil} element={<EditProfile />} />
       </Routes>
     </BrowserRouter>
   );

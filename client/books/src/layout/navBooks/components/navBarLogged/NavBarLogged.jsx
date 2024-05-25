@@ -12,10 +12,10 @@ export const NavBarLogged = () => {
         <Text fontSize="xl">CYJ</Text>
       </ChakraLink>
       <Spacer />
-      <ChakraLink as={RouterLink} to={ruta.login} mr="4">
+      <ChakraLink as={RouterLink} to={ruta.perfil} mr="4">
         Perfil
       </ChakraLink>
-      <ChakraLink as={RouterLink} to={ruta.registro}>
+      <ChakraLink as={RouterLink} to={ruta.logout}>
         Log Out
       </ChakraLink>
     </Flex>
