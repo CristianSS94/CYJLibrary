@@ -9,10 +9,18 @@ const multerSingle = require("../middleware/multerSingle");
 //   res.send('respond with a resource');
 // });
 
+//Crear usuario
 router.post("/createuser", usersControllers.createUser);
-router.put("/confirmationuser/:token", usersControllers.confirmateUser);
+//TODO
+//Confirmar el correo del usuario
+// router.put("/confirmationuser/:token", usersControllers.confirmateUser);
+//Logar al usuario
 router.post("/loginuser", usersControllers.loginUser);
+//Editar al usuario
 router.put("/edituser", multerSingle("users"), usersControllers.editUser);
+//Eliminar al usuario
 router.put("/deleteuser/:id", usersControllers.deleteUser);
+//traer datos de un usuario
+router.get("/userdata/:id", usersControllers.getUser);
 
 module.exports = router;

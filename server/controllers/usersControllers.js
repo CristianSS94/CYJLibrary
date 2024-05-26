@@ -121,8 +121,9 @@ class usersControllers {
 
   editUser = async (req, res) => {
     try {
-      const { nickname, name, lastname, phonenumber, user_id, email } =
-        req.body;
+      const { user_name, last_name, phone_number, user_id, email } = req.body;
+      console.log("Esto es el requbody", req.body);
+      console.log("telefono", phone_number);
 
       // Busca al usuario por su ID utilizando Sequelize
       const user = await User.findByPk(user_id);
@@ -131,24 +132,16 @@ class usersControllers {
         return res.status(404).json({ message: "Usuario no encontrado" });
       }
 
-      let img = user.img;
-
       // Actualiza los campos del usuario
-      user.nickname = nickname;
-      user.name = name;
-      user.lastname = lastname;
-      user.email = email;
-
-      if (phonenumber === "") {
-        user.phonenumber = null;
-      } else {
-        user.phonenumber = phonenumber;
+      user.user_name = user_name;
+      user.last_name = last_name;
+      if (phone_number) {
+        user.phone_number = phone_number;
       }
 
       // Si se proporciona una nueva imagen, actualiza la imagen del usuario
       if (req.file) {
-        img = req.file.filename;
-        user.img = img;
+        user.img = req.file.filename;
       }
 
       // Guarda los cambios en la base de datos
@@ -156,12 +149,28 @@ class usersControllers {
 
       res
         .status(200)
-        .json({ message: "Usuario actualizado correctamente", user, img });
+        .json({ message: "Usuario actualizado correctamente", user });
     } catch (error) {
       console.log(error);
       res
         .status(500)
         .json({ error, message: "Error al actualizar el usuario" });
+    }
+  };
+
+  getUser = async (req, res) => {
+    try {
+      console.log(req.params);
+      const { id: user_id } = req.params;
+      const user = await User.findByPk(parseInt(user_id));
+
+      if (!user) {
+        return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+      return res.status(200).json({ user });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error, message: "Error al llamar al usuario" });
     }
   };
 

@@ -48,8 +48,8 @@ export const UserProfile = () => {
                 Telefóno
               </Heading>
               <Text pt="2" fontSize="sm">
-                {user.phone_mumber
-                  ? user.phone_mumbe
+                {user.phone_number
+                  ? user.phone_number
                   : "No ha añadido ningún número de Telefóno"}
               </Text>
               <Stack spacing={4} paddingTop={5} direction="row" align="center">
