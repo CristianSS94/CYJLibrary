@@ -4,5 +4,8 @@ export const ruta = {
   logout: "/logout",
   registro: "/register",
   perfil: "/profile",
-  editarPerfil: "/profile/edit",
+  editarPerfil: "/profile/editprofile",
+  editarPassword: "/profile/editprofile/password",
+  biblioteca: "/library",
+  mensajes: "/inbox",
 };

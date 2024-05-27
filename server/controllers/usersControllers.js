@@ -9,6 +9,7 @@ class usersControllers {
   createUser = async (req, res) => {
     try {
       const { name, lastName, email, password } = req.body;
+      console.log(req.body);
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         res.status(400).json({ message: "Correo no valido" });
@@ -26,12 +27,12 @@ class usersControllers {
           is_confirmed: false, // Valor predeterminado
         });
 
-        //Genera el token de confirmación
-        const token = jwt.sign({ email: newUser.email }, process.env.T_PASS);
+        // //Genera el token de confirmación
+        // const token = jwt.sign({ email: newUser.email }, process.env.T_PASS);
 
-        //Envía el correo de confirmación
-        const message = `http://localhost:5173/confirmationuser/${token}`;
-        mailer(email, user_name, message);
+        // //Envía el correo de confirmación
+        // const message = `http://localhost:5173/confirmationuser/${token}`;
+        // mailer(email, user_name, message);
 
         // Responde con éxito
         res.status(200).json({
@@ -92,7 +93,7 @@ class usersControllers {
 
   editUser = async (req, res) => {
     try {
-      const { user_name, last_name, phone_number, user_id, email } = req.body;
+      const { user_name, last_name, phone_number, user_id } = req.body;
       console.log("Esto es el requbody", req.body);
       console.log("telefono", phone_number);
 
@@ -172,33 +173,82 @@ class usersControllers {
   };
 
   //Confirmar el mail del usuario mediante nodemailer
-  confirmateUser = async (req, res) => {
-    const { token } = req.params;
-    jwt.verify(token, process.env.T_PASS, async (err, decoded) => {
-      if (err) {
-        res.status(401).json({ message: "Token no válido" });
-      } else {
-        try {
-          const email = decoded.email;
+  // confirmateUser = async (req, res) => {
+  //   const { token } = req.params;
+  //   jwt.verify(token, process.env.T_PASS, async (err, decoded) => {
+  //     if (err) {
+  //       res.status(401).json({ message: "Token no válido" });
+  //     } else {
+  //       try {
+  //         const email = decoded.email;
 
-          // Encuentra el usuario por email
-          const user = await User.findOne({ where: { email } });
+  //         // Encuentra el usuario por email
+  //         const user = await User.findOne({ where: { email } });
 
-          if (!user) {
-            return res.status(404).json({ message: "Usuario no encontrado" });
-          }
+  //         if (!user) {
+  //           return res.status(404).json({ message: "Usuario no encontrado" });
+  //         }
 
-          // Actualiza el usuario para confirmar la cuenta
-          user.is_confirmed = true;
-          await user.save();
+  //         // Actualiza el usuario para confirmar la cuenta
+  //         user.is_confirmed = true;
+  //         await user.save();
 
-          res.status(200).json({ message: "Usuario confirmado con éxito" });
-        } catch (error) {
-          console.log(error);
-          res.status(500).json({ message: "Error al confirmar el usuario" });
-        }
+  //         res.status(200).json({ message: "Usuario confirmado con éxito" });
+  //       } catch (error) {
+  //         console.log(error);
+  //         res.status(500).json({ message: "Error al confirmar el usuario" });
+  //       }
+  //     }
+  //   });
+  // };
+
+  verifyPassword = async (req, res) => {
+    try {
+      const { user_id } = req.params;
+      const { password } = req.body;
+      const user = await User.findByPk(parseInt(user_id));
+      if (!user) {
+        return res.status(404).json({ message: "Usuario no encontrado" });
       }
-    });
+
+      const isVerify = await bcrypt.compare(password, user.password);
+      if (isVerify) {
+        return res.status(200).json({ message: "Contraseña correcta" });
+      } else {
+        return res.status(401).json({ message: "Contraseña incorrecta" });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error al confirmar la contraseña" });
+    }
+  };
+
+  editPassword = async (req, res) => {
+    try {
+      const { user_id } = req.params;
+      const { password } = req.body;
+
+      console.log(user_id);
+      console.log(password);
+
+      const user = await User.findByPk(parseInt(user_id));
+
+      if (!user) {
+        return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 8);
+
+      user.password = hashedPassword;
+
+      await user.save();
+
+      res
+        .status(200)
+        .json({ message: "Usuario actualizado correctamente", user });
+    } catch (error) {
+      res.status(500).json({ message: "Error al modificar la contraseña" });
+    }
   };
 }
 

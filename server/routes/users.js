@@ -22,5 +22,7 @@ router.put("/edituser", multerSingle("users"), usersControllers.editUser);
 router.put("/deleteuser/:id", usersControllers.deleteUser);
 //traer datos de un usuario
 router.get("/userdata/:id", usersControllers.getUser);
+router.put("/verifypassword/:user_id", usersControllers.verifyPassword);
+router.put("/editpassword/:user_id", usersControllers.editPassword);
 
 module.exports = router;

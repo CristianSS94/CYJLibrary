@@ -13,11 +13,11 @@ import {
 } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
+import { ruta } from "../../routes/routesBooks";
 
 export const UserProfile = () => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-  console.log(user);
 
   return (
     <>
@@ -55,11 +55,11 @@ export const UserProfile = () => {
               <Stack spacing={4} paddingTop={5} direction="row" align="center">
                 <Button
                   colorScheme="teal"
-                  onClick={() => navigate("/profile/edit")}
+                  onClick={() => navigate(ruta.editarPerfil)}
                 >
                   Modificar
                 </Button>
-                <Button colorScheme="teal" onClick={() => navigate("/")}>
+                <Button colorScheme="teal" onClick={() => navigate(ruta.home)}>
                   {" "}
                   Volver
                 </Button>

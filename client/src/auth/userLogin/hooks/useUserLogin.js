@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const useUserLogin = () => {
+  //Objeto inicial para iniciar sesión
   const initialValue = {
     email: "",
     password: "",
   };
+
   //Estado que maneja la muestra de la contraseña
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
