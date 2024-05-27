@@ -1,16 +1,7 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Stack } from "@chakra-ui/react";
 import React from "react";
 import { useEditPassword } from "./hooks/useEditPassword";
-import { ruta } from "../../../../routes/routesBooks";
+import { ruta } from "../../../../routes/routesClient";
 
 export const EditPassword = () => {
   const {
@@ -32,12 +23,12 @@ export const EditPassword = () => {
       {!verifyPassword ? (
         <Box padding={4}>
           <FormControl isRequired>
-            <FormLabel>Contraseña</FormLabel>
+            <FormLabel>Introduce tu contraseña</FormLabel>
             <InputGroup size="md">
               <Input
                 pr="4.5rem"
                 type={show ? "text" : "password"}
-                placeholder="Contraseña"
+                placeholder="Contraseña actual"
                 onChange={handleChange}
                 name="password"
                 value={userPassword.password}
@@ -53,12 +44,9 @@ export const EditPassword = () => {
             <Button colorScheme="teal" onClick={handleSubmitPassword}>
               Aceptar
             </Button>
-            <Button
-              colorScheme="teal"
-              onClick={() => navigate(ruta.editarPerfil)}
-            >
+            <Button colorScheme="teal" onClick={() => navigate(ruta.perfil)}>
               {" "}
-              Cancelar
+              volver
             </Button>
           </Stack>
         </Box>
@@ -70,7 +58,7 @@ export const EditPassword = () => {
               <Input
                 pr="4.5rem"
                 type={show ? "text" : "password"}
-                placeholder="Contraseña"
+                placeholder="Nueva contraseña"
                 onChange={handleChangeNew}
                 name="password"
                 value={newPassword.password}
@@ -88,7 +76,7 @@ export const EditPassword = () => {
               <Input
                 pr="4.5rem"
                 type={show ? "text" : "password"}
-                placeholder="Contraseña"
+                placeholder="Repite la Contraseña"
                 onChange={handleChangeNew}
                 name="password2"
                 value={newPassword.password2}
@@ -104,10 +92,7 @@ export const EditPassword = () => {
             <Button colorScheme="teal" onClick={handleSubmitNewPassword}>
               Aceptar
             </Button>
-            <Button
-              colorScheme="teal"
-              onClick={() => navigate(ruta.editarPerfil)}
-            >
+            <Button colorScheme="teal" onClick={() => navigate(ruta.perfil)}>
               {" "}
               Cancelar
             </Button>

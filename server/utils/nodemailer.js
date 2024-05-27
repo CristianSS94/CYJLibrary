@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const connection = require("../config/db");
 require("dotenv").config(); // por si acaso no sabemos aun
 
-async function mailer(email, nickname, message) {
+async function mailer(email, user_name, message) {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -20,20 +20,19 @@ async function mailer(email, nickname, message) {
       subject: "Bienvenido a CYJBooks", // Subject line
       // text: "Hola algo bonito", // plain text body
       html: `
-      <div style="font-family: Arial, sans-serif; background-color: #1D1D1B; padding-bottom: 1px">
+      <div style="font-family: Arial, sans-serif; background-color: #ffffff; padding-bottom: 1px; color: #000000;">
 
-    <div style="text-align: center; background-color: #1D1D1B; padding: 10px; color: #black;">
-      <p style="margin: 0;">¡Bienvenido a CYJBooks!</p>
-    </div>
-  
-    <h2 style="margin: 20px; color: #fff;">Hola, ${
-      user_name && user_name.charAt(0).toUpperCase() + user_name.slice(1)
-    }</h2>
-  
-    <p style="margin: 20px; color: #fff;">Gracias por completar tu registro en Ascendio.</p>
-  
-    <p style="margin: 20px; color: #fff;">Para activar tu cuenta, pulsa <a href="${message}" style="text-decoration: none; color: #black;">aquí</a>.</p>
-  </div> `, // html body
+        <div style="text-align: center; background-color: #ffffff; padding: 10px;">
+          <p style="margin: 0;">¡Bienvenido a CYJBooks!</p>
+        </div>
+
+        <h2 style="margin: 20px;">Hola, ${user_name}</h2>
+
+        <p style="margin: 20px;">Gracias por completar tu registro en CYJLibrary.</p>
+
+        <p style="margin: 20px;">Para activar tu cuenta, pulsa <a href="${message}" style="text-decoration: none; color: #000000;">aquí</a>.</p>
+      </div>
+    `, // html body
     });
 
     console.log("Message sent: %s", info.messageId);

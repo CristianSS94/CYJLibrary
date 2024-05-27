@@ -13,13 +13,13 @@ const multerSingle = require("../middleware/multerSingle");
 router.post("/createuser", usersControllers.createUser);
 //TODO
 //Confirmar el correo del usuario
-// router.put("/confirmationuser/:token", usersControllers.confirmateUser);
+router.put("/confirmationuser/:token", usersControllers.confirmateUser);
 //Logar al usuario
 router.post("/loginuser", usersControllers.loginUser);
 //Editar al usuario
 router.put("/edituser", multerSingle("users"), usersControllers.editUser);
 //Eliminar al usuario
-router.put("/deleteuser/:id", usersControllers.deleteUser);
+router.delete("/deleteuser/:id", usersControllers.deleteUser);
 //traer datos de un usuario
 router.get("/userdata/:id", usersControllers.getUser);
 router.put("/verifypassword/:user_id", usersControllers.verifyPassword);

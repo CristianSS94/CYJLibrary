@@ -8,4 +8,6 @@ export const ruta = {
   editarPassword: "/profile/editprofile/password",
   biblioteca: "/library",
   mensajes: "/inbox",
+  confirmarUsuario: "/confirmateuser/:token",
+  borrarCuenta: "/deleteuser",
 };

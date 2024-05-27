@@ -27,17 +27,15 @@ class usersControllers {
           is_confirmed: false, // Valor predeterminado
         });
 
-        // //Genera el token de confirmación
-        // const token = jwt.sign({ email: newUser.email }, process.env.T_PASS);
+        //Genera el token de confirmación
+        const token = jwt.sign({ email: newUser.email }, process.env.T_PASS);
 
-        // //Envía el correo de confirmación
-        // const message = `http://localhost:5173/confirmationuser/${token}`;
-        // mailer(email, user_name, message);
+        //Envía el correo de confirmación
+        const message = `http://localhost:5173/confirmateuser/${token}`;
+        mailer(email, name, message);
 
-        // Responde con éxito
         res.status(200).json({
-          message:
-            "Usuario registrado con éxito, email de confirmación enviado",
+          message: "Usuario registrado con éxito, email de confirmación enviado",
         });
       }
     } catch (error) {
@@ -48,47 +46,27 @@ class usersControllers {
     }
   };
 
-  loginUser = (req, res) => {
-    const { email, password } = req.body;
+  loginUser = async (req, res) => {
+    try {
+      const { email, password } = req.body;
 
-    // Busca al usuario por su correo electrónico utilizando Sequelize
-    User.findOne({ where: { email } })
-      .then((user) => {
-        if (!user /*|| !user.is_confirmed*/) {
-          // Si el usuario no existe, ha sido eliminado, no está confirmado o está deshabilitado, responde con un estado 401
-          res.status(401).json("Usuario no autorizado");
-        } else {
-          // Si el usuario existe y está en un estado válido, compara las contraseñas
-          bcrypt.compare(password, user.password, (error, response) => {
-            if (error) return res.status(500).json(error);
+      // Busca al usuario por su email
+      const user = await User.findOne({ where: { email } });
 
-            if (response) {
-              // Si las contraseñas coinciden, genera un token JWT con los datos del usuario
-              const token = jwt.sign(
-                {
-                  user: {
-                    user_id: user.user_id,
-                    type: user.type,
-                  },
-                },
-                process.env.SECRET,
-                { expiresIn: "1d" } // Tiempo de expiración del token
-              );
+      // Verifica si el usuario existe y si la contraseña es correcta
+      if (user && user.is_confirmed == true && (await bcrypt.compare(password, user.password))) {
+        // Genera un token
+        const token = jwt.sign({ user_id: user.user_id }, process.env.T_PASS, { expiresIn: "1h" });
 
-              // Responde con el token y los datos del usuario
-              res.status(200).json({ token, user });
-            } else {
-              // Si las contraseñas no coinciden, responde con un estado 401
-              res.status(401).json("Email o contraseña incorrecta");
-            }
-          });
-        }
-      })
-      .catch((error) => {
-        // Maneja los errores de la consulta
-        console.log(error);
-        res.status(500).json(error);
-      });
+        // Responde con el token
+        res.status(200).json({ message: "Login correcto", token });
+      } else {
+        res.status(401).json({ message: "Email o contraseña incorrecta" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error en el login" });
+    }
   };
 
   editUser = async (req, res) => {
@@ -119,14 +97,10 @@ class usersControllers {
       // Guarda los cambios en la base de datos
       await user.save();
 
-      res
-        .status(200)
-        .json({ message: "Usuario actualizado correctamente", user });
+      res.status(200).json({ message: "Usuario actualizado correctamente", user });
     } catch (error) {
       console.log(error);
-      res
-        .status(500)
-        .json({ error, message: "Error al actualizar el usuario" });
+      res.status(500).json({ error, message: "Error al actualizar el usuario" });
     }
   };
 
@@ -149,7 +123,6 @@ class usersControllers {
   deleteUser = async (req, res) => {
     try {
       const { id: user_id } = req.params;
-      const { email, nickname } = req.body;
 
       // Busca al usuario por su ID utilizando Sequelize
       const user = await User.findByPk(user_id);
@@ -162,8 +135,6 @@ class usersControllers {
       await user.destroy();
 
       // Envía un correo electrónico de confirmación de eliminación
-      const message = `http://localhost:5173/deleteuser/${user_id}`;
-      nodemailerDeleteUser(email, nickname, message);
 
       res.status(200).json({ message: "Usuario eliminado correctamente" });
     } catch (error) {
@@ -173,34 +144,34 @@ class usersControllers {
   };
 
   //Confirmar el mail del usuario mediante nodemailer
-  // confirmateUser = async (req, res) => {
-  //   const { token } = req.params;
-  //   jwt.verify(token, process.env.T_PASS, async (err, decoded) => {
-  //     if (err) {
-  //       res.status(401).json({ message: "Token no válido" });
-  //     } else {
-  //       try {
-  //         const email = decoded.email;
+  confirmateUser = async (req, res) => {
+    const { token } = req.params;
+    jwt.verify(token, process.env.T_PASS, async (err, decoded) => {
+      if (err) {
+        res.status(401).json({ message: "Token no válido" });
+      } else {
+        try {
+          const email = decoded.email;
 
-  //         // Encuentra el usuario por email
-  //         const user = await User.findOne({ where: { email } });
+          // Encuentra el usuario por email
+          const user = await User.findOne({ where: { email } });
 
-  //         if (!user) {
-  //           return res.status(404).json({ message: "Usuario no encontrado" });
-  //         }
+          if (!user) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+          }
 
-  //         // Actualiza el usuario para confirmar la cuenta
-  //         user.is_confirmed = true;
-  //         await user.save();
+          // Actualiza el usuario para confirmar la cuenta
+          user.is_confirmed = true;
+          await user.save();
 
-  //         res.status(200).json({ message: "Usuario confirmado con éxito" });
-  //       } catch (error) {
-  //         console.log(error);
-  //         res.status(500).json({ message: "Error al confirmar el usuario" });
-  //       }
-  //     }
-  //   });
-  // };
+          res.status(200).json({ message: "Usuario confirmado con éxito" });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ message: "Error al confirmar el usuario" });
+        }
+      }
+    });
+  };
 
   verifyPassword = async (req, res) => {
     try {
@@ -243,9 +214,7 @@ class usersControllers {
 
       await user.save();
 
-      res
-        .status(200)
-        .json({ message: "Usuario actualizado correctamente", user });
+      res.status(200).json({ message: "Usuario actualizado correctamente", user });
     } catch (error) {
       res.status(500).json({ message: "Error al modificar la contraseña" });
     }

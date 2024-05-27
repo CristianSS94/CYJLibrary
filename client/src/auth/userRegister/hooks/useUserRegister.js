@@ -29,21 +29,14 @@ export const useUserRegister = () => {
   };
 
   const handleSubmit = () => {
-    if (
-      !register.name ||
-      !register.lastName ||
-      !register.email ||
-      !register.password ||
-      !register.email2 ||
-      !register.password2
-    ) {
+    if (!register.name || !register.lastName || !register.email || !register.password || !register.email2 || !register.password2) {
       setMsgError("Algun campo no está relleno");
     } else if (register.email !== register.email2) {
       setMsgError("Los correos no coinciden");
     } else if (register.password !== register.password2) {
       setMsgError("Las contraseñas no coinciden");
-    } else if (register.password.length < 10) {
-      setMsgError("Contraseña demasiado corta");
+      // } else if (register.password.length < 10) {
+      //   setMsgError("Contraseña demasiado corta");
     } else {
       axios
         .post("http://localhost:3000/users/createuser", register)
@@ -53,15 +46,9 @@ export const useUserRegister = () => {
         })
         .catch((err) => {
           console.log(err.response.data);
-          if (
-            err.response.data.error?.errno === 1062 &&
-            err.response.data.error?.sqlMessage.includes("user.email")
-          ) {
+          if (err.response.data.error?.errno === 1062 && err.response.data.error?.sqlMessage.includes("user.email")) {
             setMsgError("Email duplicado");
-          } else if (
-            err.response.data.error?.errno === 1062 &&
-            err.response.data.error?.sqlMessage.includes("user.nickname")
-          ) {
+          } else if (err.response.data.error?.errno === 1062 && err.response.data.error?.sqlMessage.includes("user.nickname")) {
             setMsgError("Nombre de usuario duplicado");
           } else if (err.response.data.error?.errno === 1406) {
             setMsgError("Campo demasiado largo");

@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useState } from "react";
-import { login } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { login } from "../../../redux/actions";
 
 export const useUserLogin = () => {
   //Objeto inicial para iniciar sesión
@@ -30,12 +30,13 @@ export const useUserLogin = () => {
     axios
       .post("http://localhost:3000/users/loginuser", loginData)
       .then((res) => {
+        localStorage.setItem("token", res.data.token);
         dispatch(login(res.data.user));
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
-        setMsgError(err.response.data);
+        setMsgError(err.response.data.message);
       });
   };
 

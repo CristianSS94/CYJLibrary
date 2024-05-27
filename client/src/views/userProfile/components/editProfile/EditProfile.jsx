@@ -2,7 +2,7 @@ import { Box, Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/re
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEditProfile } from "./hooks/useEditProfile";
-import { ruta } from "../../../../routes/routesBooks";
+import { ruta } from "../../../../routes/routesClient";
 
 export const EditProfile = () => {
   const navigate = useNavigate();
@@ -29,10 +29,6 @@ export const EditProfile = () => {
         <Button colorScheme="teal" onClick={() => navigate(ruta.perfil)}>
           {" "}
           Volver
-        </Button>
-        <Button colorScheme="teal" onClick={() => navigate(ruta.editarPassword)}>
-          {" "}
-          Modificar la contraseña
         </Button>
       </Stack>
     </Box>

@@ -2,7 +2,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
-import { ruta } from "../../routes/routesBooks";
+import { ruta } from "../../routes/routesClient";
+import { useEffect, useState } from "react";
 
 export const useGetDataUser = () => {
   const user = useSelector((state) => state.auth.user);
