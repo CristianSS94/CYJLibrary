@@ -30,6 +30,7 @@ export const useUserLogin = () => {
     axios
       .post("http://localhost:3000/users/loginuser", loginData)
       .then((res) => {
+        console.log(res.data);
         localStorage.setItem("token", res.data.token);
         dispatch(login(res.data.user));
         navigate("/");

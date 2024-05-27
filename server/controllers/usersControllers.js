@@ -54,12 +54,14 @@ class usersControllers {
       const user = await User.findOne({ where: { email } });
 
       // Verifica si el usuario existe y si la contraseña es correcta
-      if (user && user.is_confirmed == true && (await bcrypt.compare(password, user.password))) {
+      if (user /*&& user.is_confirmed == true*/ && (await bcrypt.compare(password, user.password))) {
         // Genera un token
         const token = jwt.sign({ user_id: user.user_id }, process.env.T_PASS, { expiresIn: "1h" });
-
+        console.log(token);
         // Responde con el token
-        res.status(200).json({ message: "Login correcto", token });
+        // res.status(200).json({ message: "Login correcto", token });
+
+        res.status(200).json({ message: "Login correcto", user, token });
       } else {
         res.status(401).json({ message: "Email o contraseña incorrecta" });
       }

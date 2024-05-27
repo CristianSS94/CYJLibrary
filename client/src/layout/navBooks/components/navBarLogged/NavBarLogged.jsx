@@ -1,16 +1,19 @@
-import { Flex, Link as ChakraLink, Text, Spacer } from "@chakra-ui/react";
+import { Link as ChakraLink, Flex, Spacer, Text } from "@chakra-ui/react";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { ruta } from "../../../../routes/routesClient";
+import { useDispatch } from "react-redux";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { delLocalStorage } from "../../../../helpers/localStorageUtils";
-import { useDispatch, useSelector } from "react-redux";
+import { ruta } from "../../../../routes/routesClient";
+import { logout } from "../../../../redux/actions";
 
 export const NavBarLogged = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const logOut = () => {
     delLocalStorage("token");
-    dispatch(logOut());
+    dispatch(logout());
+    navigate(ruta.home);
   };
 
   return (
@@ -28,9 +31,7 @@ export const NavBarLogged = () => {
       <ChakraLink as={RouterLink} to={ruta.perfil} mr="4">
         Perfil
       </ChakraLink>
-      <ChakraLink as={RouterLink} onClick={logOut}>
-        Log Out
-      </ChakraLink>
+      <ChakraLink onClick={logOut}>LogOut</ChakraLink>
     </Flex>
   );
 };

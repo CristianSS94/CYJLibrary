@@ -3,23 +3,22 @@ import { jwtDecode } from "jwt-decode";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateUser } from "./redux/actions";
-
 import { RoutesBooks } from "./routes/RoutesBooks";
 
 const App = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const getTokenUser = () => {
     const token = localStorage.getItem("token");
+    console.log(token);
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        const id = decoded.user_id; // Asegúrate de que el campo de ID del usuario esté correctamente definido
-
-        // Obtener los datos del usuario y almacenarlos en Redux
+        const id = decoded.user_id;
         axios
           .get(`http://localhost:3000/users/userdata/${id}`)
           .then((res) => {
+            console.log(res);
             dispatch(updateUser(res.data.user));
           })
           .catch((err) => {
@@ -29,7 +28,10 @@ const App = () => {
         console.log("Error al decodificar el token:", error);
       }
     }
-  }, [dispatch]);
+  };
+
+  useEffect(() => getTokenUser(), [dispatch]);
+
   return (
     <>
       <RoutesBooks />

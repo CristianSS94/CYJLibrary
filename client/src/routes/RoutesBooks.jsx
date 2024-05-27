@@ -33,12 +33,11 @@ export const RoutesBooks = () => {
           <Route path={ruta.mensajes} element={<UserInbox />} />
           <Route path={ruta.confirmarUsuario} element={<ConfirmateUser />} />
           <Route path={ruta.borrarCuenta} element={<DeleteUser />} />
-          //TODO // complater editar el perfil. // Que el usuario se borre de la //Rutas Privadas web ? // subir libros ? // modificar libros ? // borrar
-          libros? // Marcar como intercambiado? requeriria modifica la DB y añadir algo tipo is_intercambiado y que sea true o false. esto afecataria al
-          muestreo de libros ya que podria suponer poder aplicar un filtro de libros disponibles? tipo vinted que aunque vendas algo, se puede quedar en el
-          perfil como vendido. // ver sus libros subidos? // ver libros de otros usuarios // mensajear a otro usuario. // borrar mensajes. //servidor falta el
-          controlador de libros // servidor falta el controlador de mensaes // el controlador de editar usuario requierenmoficiones // crear consultad a la db
-          con sequelize
+          //TODO // //Rutas Privadas web ? // subir libros ? // modificar libros ? // borrar libros? // Marcar como intercambiado? requeriria modifica la DB y
+          añadir algo tipo is_intercambiado y que sea true o false. esto afecataria al muestreo de libros ya que podria suponer poder aplicar un filtro de
+          libros disponibles? tipo vinted que aunque vendas algo, se puede quedar en el perfil como vendido. // ver sus libros subidos? // ver libros de otros
+          usuarios // mensajear a otro usuario. // borrar mensajes. //servidor falta el controlador de libros // servidor falta el controlador de mensaes crear
+          consultad a la db con sequelize
         </Routes>
       </main>
     </BrowserRouter>
