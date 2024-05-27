@@ -1,7 +1,7 @@
 import { Flex, Spacer, Text, Link as ChakraLink } from "@chakra-ui/react";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { useRoutesBooks } from "../../../../routes/useRoutesBooks";
+import { useRoutesBooks } from "../../../../routes/routesBooks";
 
 export const NavBarNotLogged = () => {
   const { ruta } = useRoutesBooks();

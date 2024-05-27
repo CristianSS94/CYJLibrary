@@ -47,35 +47,6 @@ class usersControllers {
     }
   };
 
-  confirmateUser = async (req, res) => {
-    const { token } = req.params;
-    jwt.verify(token, process.env.T_PASS, async (err, decoded) => {
-      if (err) {
-        res.status(401).json({ message: "Token no válido" });
-      } else {
-        try {
-          const email = decoded.email;
-
-          // Encuentra el usuario por email
-          const user = await User.findOne({ where: { email } });
-
-          if (!user) {
-            return res.status(404).json({ message: "Usuario no encontrado" });
-          }
-
-          // Actualiza el usuario para confirmar la cuenta
-          user.is_confirmed = true;
-          await user.save();
-
-          res.status(200).json({ message: "Usuario confirmado con éxito" });
-        } catch (error) {
-          console.log(error);
-          res.status(500).json({ message: "Error al confirmar el usuario" });
-        }
-      }
-    });
-  };
-
   loginUser = (req, res) => {
     const { email, password } = req.body;
 
@@ -198,6 +169,36 @@ class usersControllers {
       console.log(error);
       res.status(500).json({ error, message: "Error al eliminar el usuario" });
     }
+  };
+
+  //Confirmar el mail del usuario mediante nodemailer
+  confirmateUser = async (req, res) => {
+    const { token } = req.params;
+    jwt.verify(token, process.env.T_PASS, async (err, decoded) => {
+      if (err) {
+        res.status(401).json({ message: "Token no válido" });
+      } else {
+        try {
+          const email = decoded.email;
+
+          // Encuentra el usuario por email
+          const user = await User.findOne({ where: { email } });
+
+          if (!user) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+          }
+
+          // Actualiza el usuario para confirmar la cuenta
+          user.is_confirmed = true;
+          await user.save();
+
+          res.status(200).json({ message: "Usuario confirmado con éxito" });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ message: "Error al confirmar el usuario" });
+        }
+      }
+    });
   };
 }
 
