@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
-import { ruta } from "../../routes/routesClient";
-import { useEffect, useState } from "react";
+import { updateUser } from "../../../redux/actions/actions";
+import { ruta } from "../../../routes/data";
 
 export const useGetDataUser = () => {
   const user = useSelector((state) => state.auth.user);
@@ -14,7 +13,6 @@ export const useGetDataUser = () => {
     axios
       .get(`http://localhost:3000/users/userdata/${user.user_id}`)
       .then((res) => {
-        console.log("getDataUser", res);
         dispatch(updateUser(res.data.user));
       })
       .catch((err) => {

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Card, CardHeader, CardBody, Heading, Stack, StackDivider, Box, Text, Button } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
-import { ruta } from "../../routes/routesClient";
+import { ruta } from "../../../routes/data";
 
 export const UserProfile = () => {
   const user = useSelector((state) => state.auth.user);

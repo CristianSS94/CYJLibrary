@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ruta } from "../../../../../routes/routesClient";
-import { useDispatch, useSelector } from "react-redux";
-import { useGetDataUser } from "../../../../../utils/users/useGetDataUser";
+import { useGetDataUser } from "../../../../../../utils";
 
 export const useEditPassword = () => {
   const { getDataUser } = useGetDataUser();

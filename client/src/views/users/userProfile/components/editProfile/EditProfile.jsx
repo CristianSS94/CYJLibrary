@@ -1,8 +1,9 @@
 import { Box, Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useEditProfile } from "./hooks/useEditProfile";
-import { ruta } from "../../../../routes/routesClient";
+import { ruta } from "../../../../../routes/data";
 
 export const EditProfile = () => {
   const navigate = useNavigate();

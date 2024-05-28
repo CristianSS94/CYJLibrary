@@ -9,7 +9,6 @@ class usersControllers {
   createUser = async (req, res) => {
     try {
       const { name, lastName, email, password } = req.body;
-      console.log(req.body);
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         res.status(400).json({ message: "Correo no valido" });
@@ -39,7 +38,6 @@ class usersControllers {
         });
       }
     } catch (error) {
-      console.log(error);
       res.status(500).json({
         error: "Error al registrar el usuario",
       });
@@ -52,21 +50,17 @@ class usersControllers {
 
       // Busca al usuario por su email
       const user = await User.findOne({ where: { email } });
-
+      const passwordCompare = await bcrypt.compare(password, user.password);
       // Verifica si el usuario existe y si la contraseña es correcta
-      if (user /*&& user.is_confirmed == true*/ && (await bcrypt.compare(password, user.password))) {
+      if (user /*&& user.is_confirmed == true*/ && passwordCompare) {
         // Genera un token
         const token = jwt.sign({ user_id: user.user_id }, process.env.T_PASS, { expiresIn: "1h" });
-        console.log(token);
-        // Responde con el token
-        // res.status(200).json({ message: "Login correcto", token });
 
         res.status(200).json({ message: "Login correcto", user, token });
       } else {
         res.status(401).json({ message: "Email o contraseña incorrecta" });
       }
     } catch (error) {
-      console.error(error);
       res.status(500).json({ message: "Error en el login" });
     }
   };
@@ -74,8 +68,6 @@ class usersControllers {
   editUser = async (req, res) => {
     try {
       const { user_name, last_name, phone_number, user_id } = req.body;
-      console.log("Esto es el requbody", req.body);
-      console.log("telefono", phone_number);
 
       // Busca al usuario por su ID utilizando Sequelize
       const user = await User.findByPk(user_id);
@@ -108,7 +100,6 @@ class usersControllers {
 
   getUser = async (req, res) => {
     try {
-      console.log(req.params);
       const { id: user_id } = req.params;
       const user = await User.findByPk(parseInt(user_id));
 
@@ -117,7 +108,6 @@ class usersControllers {
       }
       return res.status(200).json({ user });
     } catch (error) {
-      console.log(error);
       res.status(500).json({ error, message: "Error al llamar al usuario" });
     }
   };
@@ -140,7 +130,6 @@ class usersControllers {
 
       res.status(200).json({ message: "Usuario eliminado correctamente" });
     } catch (error) {
-      console.log(error);
       res.status(500).json({ error, message: "Error al eliminar el usuario" });
     }
   };
@@ -168,7 +157,6 @@ class usersControllers {
 
           res.status(200).json({ message: "Usuario confirmado con éxito" });
         } catch (error) {
-          console.log(error);
           res.status(500).json({ message: "Error al confirmar el usuario" });
         }
       }
@@ -191,7 +179,6 @@ class usersControllers {
         return res.status(401).json({ message: "Contraseña incorrecta" });
       }
     } catch (error) {
-      console.log(error);
       res.status(500).json({ message: "Error al confirmar la contraseña" });
     }
   };
@@ -200,9 +187,6 @@ class usersControllers {
     try {
       const { user_id } = req.params;
       const { password } = req.body;
-
-      console.log(user_id);
-      console.log(password);
 
       const user = await User.findByPk(parseInt(user_id));
 

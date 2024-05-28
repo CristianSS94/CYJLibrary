@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useGetDataUser } from "../../../../../utils/users/useGetDataUser";
+import { useGetDataUser } from "../../../../../../utils";
 
 export const useEditProfile = () => {
   const { getDataUser } = useGetDataUser();

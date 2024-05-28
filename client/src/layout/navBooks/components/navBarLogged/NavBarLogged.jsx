@@ -1,10 +1,10 @@
 import { Link as ChakraLink, Flex, Spacer, Text } from "@chakra-ui/react";
-import React from "react";
 import { useDispatch } from "react-redux";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { delLocalStorage } from "../../../../helpers/localStorageUtils";
-import { ruta } from "../../../../routes/routesClient";
-import { logout } from "../../../../redux/actions";
+
+import { logout } from "../../../../redux";
+import { ruta } from "../../../../routes/data";
+import { delLocalStorage } from "../../../../utils";
 
 export const NavBarLogged = () => {
   const dispatch = useDispatch();

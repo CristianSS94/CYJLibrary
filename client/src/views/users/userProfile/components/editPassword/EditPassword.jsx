@@ -1,7 +1,8 @@
 import { Box, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Stack } from "@chakra-ui/react";
 import React from "react";
+
 import { useEditPassword } from "./hooks/useEditPassword";
-import { ruta } from "../../../../routes/routesClient";
+import { ruta } from "../../../../../routes/data";
 
 export const EditPassword = () => {
   const {

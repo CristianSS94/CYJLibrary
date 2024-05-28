@@ -2,7 +2,8 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateUser } from "./redux/actions";
+
+import { updateUser } from "./redux";
 import { RoutesBooks } from "./routes/RoutesBooks";
 
 const App = () => {

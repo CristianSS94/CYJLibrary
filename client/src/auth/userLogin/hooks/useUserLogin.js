@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../../redux/actions";
+import { login } from "../../../redux";
 
 export const useUserLogin = () => {
   //Objeto inicial para iniciar sesión
