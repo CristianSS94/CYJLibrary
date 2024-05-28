@@ -22,6 +22,9 @@ export const NavBarLogged = () => {
         <Text fontSize="xl">CYJLibrary</Text>
       </ChakraLink>
       <Spacer />
+      <ChakraLink as={RouterLink} to={ruta.usuarios} mr="4">
+        Usuarios
+      </ChakraLink>
       <ChakraLink as={RouterLink} to={ruta.mensajes} mr="4">
         Mensajes
       </ChakraLink>

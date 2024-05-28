@@ -24,5 +24,6 @@ router.delete("/deleteuser/:id", usersControllers.deleteUser);
 router.get("/userdata/:id", usersControllers.getUser);
 router.put("/verifypassword/:user_id", usersControllers.verifyPassword);
 router.put("/editpassword/:user_id", usersControllers.editPassword);
+router.get("/getallusers", usersControllers.getAllUsers);
 
 module.exports = router;

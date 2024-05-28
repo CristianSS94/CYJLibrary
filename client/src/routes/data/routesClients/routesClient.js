@@ -10,4 +10,6 @@ export const ruta = {
   mensajes: "/inbox",
   confirmarUsuario: "/confirmateuser/:token",
   borrarCuenta: "/deleteuser",
+  usuarios: "/allusers",
+  otrousuario: "/oneuser",
 };

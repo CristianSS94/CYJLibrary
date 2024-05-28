@@ -1,9 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { ruta } from "../../data";
 import { ConfirmateUser, UserLogin } from "../../../auth";
 import { UserInbox, UserLibrary, UserProfile } from "../../../views/users";
 import { DeleteUser, EditPassword, EditProfile } from "../../../views/users/userProfile/components";
+import { AllUsers } from "../../../views/users/AllUsers/AllUsers";
+import { OneUser } from "../../../views/users/AllUsers/components/oneUser/OneUser";
+import { ruta } from "../../data";
 
 export const PrivateRoutes = () => {
   return (
@@ -17,6 +19,8 @@ export const PrivateRoutes = () => {
       <Route path={ruta.mensajes} element={<UserInbox />} />
       <Route path={ruta.confirmarUsuario} element={<ConfirmateUser />} />
       <Route path={ruta.borrarCuenta} element={<DeleteUser />} />
+      <Route path={ruta.usuarios} element={<AllUsers />} />
+      <Route path={ruta.otrousuario} element={<OneUser />} />
     </Routes>
   );
 };
