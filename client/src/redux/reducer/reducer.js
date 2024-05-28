@@ -27,3 +27,19 @@ export const authReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+const initialCategories = {
+  categories: null,
+};
+
+export const categoriesReducer = (state = initialCategories, action) => {
+  switch (action.type) {
+    case "UPDATE_CATEGORIES":
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    default:
+      return state;
+  }
+};

@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 const usersControllers = require("../controllers/usersControllers");
 const multerSingle = require("../middleware/multerSingle");
-// const multerSingle = require("../middleware/multerSingle");
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -11,7 +10,6 @@ const multerSingle = require("../middleware/multerSingle");
 
 //Crear usuario
 router.post("/createuser", usersControllers.createUser);
-//TODO
 //Confirmar el correo del usuario
 router.put("/confirmationuser/:token", usersControllers.confirmateUser);
 //Logar al usuario

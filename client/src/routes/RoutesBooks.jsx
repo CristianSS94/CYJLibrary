@@ -4,15 +4,17 @@ import { useSelector } from "react-redux";
 import { NavBooks, FooterBooks } from "../layout";
 import { PrivateRoutes, PublicRoutes } from "./routesLayout";
 
+import "./stylesGeneral.scss";
+
 export const RoutesBooks = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <BrowserRouter>
-      <header>
+      <header className="header-container-library">
         <NavBooks />
       </header>
-      <main>
+      <main className="main-container-library">
         {!isLoggedIn ? <PublicRoutes /> : <PrivateRoutes />}
         {/* //TODO 
         // subir libros ? 
@@ -29,7 +31,7 @@ export const RoutesBooks = () => {
         // servidor falta el controlador de mensaes crear consultad a
         la db con sequelize */}
       </main>
-      <footer>
+      <footer className="footer-container-library">
         <FooterBooks />
       </footer>
     </BrowserRouter>

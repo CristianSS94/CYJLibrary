@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useGetDataUser } from "../../../../../../utils";
+import { ruta } from "../../../../../../routes/data";
 
 export const useEditProfile = () => {
   const { getDataUser } = useGetDataUser();
@@ -27,7 +28,10 @@ export const useEditProfile = () => {
   const handleSubmit = () => {
     axios
       .put("http://localhost:3000/users/edituser", editUser)
-      .then((res) => getDataUser())
+      .then((res) => {
+        getDataUser();
+        navigate(ruta.perfil);
+      })
       .catch((err) => console.log(err));
   };
 

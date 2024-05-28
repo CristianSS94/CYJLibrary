@@ -39,3 +39,11 @@ CREATE TABLE message (
   FOREIGN KEY (user_sender_id) REFERENCES user(user_id),
   FOREIGN KEY (user_receiver_id) REFERENCES user(user_id)
 );
+
+INSERT INTO category (category_name) VALUES
+  ('Fantasía'),
+  ('Amor'),
+  ('Drama'),
+  ('Aventuras'),
+  ('Acción'),
+  ('Terror');

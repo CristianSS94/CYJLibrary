@@ -14,7 +14,6 @@ export const useAllUsers = () => {
     axios
       .get(`${urlUsers}/getallusers`)
       .then((res) => {
-        console.log(res.data);
         setAlluserData(res.data);
       })
       .catch((error) => {

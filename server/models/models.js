@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-// Configuro la conexión a la base de datos
 const sequelize = new Sequelize({
   dialect: "mysql",
   host: process.env.DB_HOST,
@@ -9,7 +8,6 @@ const sequelize = new Sequelize({
   database: process.env.DB_NAME,
 });
 
-// Defino el modelo User
 const User = sequelize.define(
   "User",
   {
@@ -50,8 +48,28 @@ const User = sequelize.define(
     },
   },
   {
-    tableName: "user", // Nombre de la tabla en la base de datos
-    timestamps: false, // Para que no agregue automáticamente columnas createdAt y updatedAt
+    tableName: "user",
+    timestamps: false,
+  }
+);
+
+const Category = sequelize.define(
+  "Category",
+  {
+    category_id: {
+      type: DataTypes.TINYINT.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    category_name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      unique: true,
+    },
+  },
+  {
+    tableName: "category",
+    timestamps: false,
   }
 );
 
@@ -71,23 +89,67 @@ const Book = sequelize.define(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    userId: {
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    category_id: {
+      type: DataTypes.TINYINT.UNSIGNED,
+      allowNull: false,
+    },
+    year_published: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    user_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
-      references: {
-        model: User,
-        key: "user_id",
-      },
     },
   },
   {
-    tableName: "book", // Nombre de la tabla en la base de datos
-    timestamps: false, // Para que no agregue automáticamente columnas createdAt y updatedAt
+    tableName: "book",
+    timestamps: false,
   }
 );
 
-// Defino las asociaciones
-User.hasMany(Book, { foreignKey: "userId", as: "books" });
-Book.belongsTo(User, { foreignKey: "userId", as: "user" });
+const Message = sequelize.define(
+  "Message",
+  {
+    message_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    user_sender_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+    user_receiver_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    sent_at: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.NOW,
+    },
+  },
+  {
+    tableName: "message",
+    timestamps: false,
+  }
+);
 
-module.exports = { User, Book, sequelize };
+User.hasMany(Book, { foreignKey: "user_id", as: "books" });
+Book.belongsTo(User, { foreignKey: "user_id", as: "user" });
+
+User.hasMany(Message, { foreignKey: "user_sender_id", as: "sent_messages" });
+User.hasMany(Message, { foreignKey: "user_receiver_id", as: "received_messages" });
+
+Category.hasMany(Book, { foreignKey: "category_id", as: "books" });
+Book.belongsTo(Category, { foreignKey: "category_id", as: "category" });
+
+module.exports = { User, Book, Message, Category, sequelize };

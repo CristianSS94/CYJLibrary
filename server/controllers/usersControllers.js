@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailer = require("../utils/nodemailer");
 require("dotenv").config();
-const { User } = require("../models/models");
+const { User, Book, Message, Category } = require("../models/models");
 
 class usersControllers {
   //Creacion de usuarios
@@ -49,7 +49,16 @@ class usersControllers {
       const { email, password } = req.body;
 
       // Busca al usuario por su email
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({
+        where: { email },
+        include: [
+          {
+            model: Book,
+            as: "books",
+            required: false,
+          },
+        ],
+      });
       const passwordCompare = await bcrypt.compare(password, user.password);
       // Verifica si el usuario existe y si la contraseña es correcta
       if (user /*&& user.is_confirmed == true*/ && passwordCompare) {
@@ -101,7 +110,15 @@ class usersControllers {
   getUser = async (req, res) => {
     try {
       const { id: user_id } = req.params;
-      const user = await User.findByPk(parseInt(user_id));
+      const user = await User.findByPk(parseInt(user_id), {
+        include: [
+          {
+            model: Book,
+            as: "books",
+            required: false,
+          },
+        ],
+      });
 
       if (!user) {
         return res.status(404).json({ message: "Usuario no encontrado" });
@@ -213,6 +230,7 @@ class usersControllers {
           {
             model: Book,
             as: "books",
+            required: false,
           },
         ],
       });

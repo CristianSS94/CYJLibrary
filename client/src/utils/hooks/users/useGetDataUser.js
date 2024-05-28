@@ -17,8 +17,7 @@ export const useGetDataUser = () => {
       })
       .catch((err) => {
         console.log("Error al actualizar al usuario:", err);
-      })
-      .finally(() => navigate(ruta.perfil));
+      });
   };
 
   return { getDataUser };

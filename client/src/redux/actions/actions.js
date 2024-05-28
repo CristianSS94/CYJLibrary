@@ -14,3 +14,8 @@ export const updateUser = (userData) => ({
   type: "UPDATE_USER",
   payload: userData,
 });
+
+export const updateCategories = (categoriesData) => ({
+  type: "UPDATE_CATEGORIES",
+  payload: categoriesData,
+});

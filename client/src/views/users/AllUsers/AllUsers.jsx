@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, CardFooter, Heading, Image, Stack } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useAllUsers } from "./hook/useAllUsers";
 import { Spinner } from "@chakra-ui/react";
@@ -33,9 +33,9 @@ export const AllUsers = () => {
                       <Heading size="md">
                         {elem.user_name} {elem.last_name}
                       </Heading>
+                      <Text>Biblioteca: {elem.books.length} libros</Text>
                     </Stack>
                   </CardBody>
-
                   <CardFooter>
                     <Button variant="solid" colorScheme="blue" onClick={() => goToProfile(elem)}>
                       Ver más

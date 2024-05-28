@@ -12,4 +12,5 @@ export const ruta = {
   borrarCuenta: "/deleteuser",
   usuarios: "/allusers",
   otrousuario: "/oneuser",
+  subirLibro: "/registerbook",
 };

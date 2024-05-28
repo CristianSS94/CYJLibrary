@@ -1,16 +1,21 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { ConfirmateUser, UserLogin } from "../../../auth";
-import { UserInbox, UserLibrary, UserProfile } from "../../../views/users";
-import { DeleteUser, EditPassword, EditProfile } from "../../../views/users/userProfile/components";
+import { UserInbox } from "../../../views/users";
 import { AllUsers } from "../../../views/users/AllUsers/AllUsers";
 import { OneUser } from "../../../views/users/AllUsers/components/oneUser/OneUser";
 import { ruta } from "../../data";
+import { HomeBooks } from "../../../views/home/HomeBooks";
+import { CreateBook } from "../../../views/library/userLibrary/components/createBook/CreateBook";
+import { DeleteUser, EditPassword, EditProfile } from "../../../views/profile/userProfile/components";
+import { UserLibrary } from "../../../views/library/userLibrary/UserLibrary";
+import { UserProfile } from "../../../views/profile/userProfile/UserProfile";
 
 export const PrivateRoutes = () => {
   return (
     <Routes>
       <Route path="*" element={<Navigate to={ruta.home} />} />
+      <Route path={ruta.home} element={<HomeBooks />} /> //MODIFICAR EL HOME
       <Route path={ruta.logout} element={<UserLogin />} />
       <Route path={ruta.perfil} element={<UserProfile />} />
       <Route path={ruta.editarPerfil} element={<EditProfile />} />
@@ -21,6 +26,7 @@ export const PrivateRoutes = () => {
       <Route path={ruta.borrarCuenta} element={<DeleteUser />} />
       <Route path={ruta.usuarios} element={<AllUsers />} />
       <Route path={ruta.otrousuario} element={<OneUser />} />
+      <Route path={ruta.subirLibro} element={<CreateBook />} />
     </Routes>
   );
 };
