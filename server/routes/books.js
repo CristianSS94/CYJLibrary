@@ -4,5 +4,7 @@ const booksControllers = require("../controllers/booksControllers");
 // const multerSingle = require("../middleware/multerSingle");
 
 router.post("/createbook", booksControllers.createBook);
+router.delete("/delete/:book_id", booksControllers.deleteBook);
+router.put("/edit/:book_id", booksControllers.editBook);
 
 module.exports = router;

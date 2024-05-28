@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 import { updateUser } from "../../../redux/actions/actions";
-import { ruta } from "../../../routes/data";
 
 export const useGetDataUser = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const getDataUser = () => {
     axios

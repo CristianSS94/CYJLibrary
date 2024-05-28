@@ -30,14 +30,14 @@ export const useCreateBook = () => {
   };
 
   const handleSubmit = () => {
-    console.log(registerBook);
-    if (!registerBook.title || !registerBook.author || !registerBook.category_id || !registerBook.year_published) {
+    const yearPublished = parseInt(registerBook.year_published);
+
+    if (!registerBook.title || !registerBook.author || !registerBook.category_id || isNaN(yearPublished) || yearPublished < 1901 || yearPublished > 2155) {
       setRegisterError("Algun campo está vacío");
     } else {
       axios
         .post(`${urlBooks}/createbook`, registerBook)
         .then((res) => {
-          console.log(res);
           getDataUser();
           navigate(ruta.biblioteca);
         })

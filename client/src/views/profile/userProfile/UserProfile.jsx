@@ -39,7 +39,7 @@ export const UserProfile = () => {
             <Text pt="2" fontSize="sm">
               {user?.phone_number ? user?.phone_number : "No ha añadido ningún número de Telefóno"}
             </Text>
-            <Stack spacing={4} paddingTop={5} direction="row" align="center">
+            <Stack sx={{ pt: "5", display: "flex", flexWrap: "wrap" }} spacing={4} direction="row" align="center">
               <Button colorScheme="teal" onClick={() => navigate(ruta.editarPerfil)}>
                 Modificar datos
               </Button>
@@ -49,10 +49,10 @@ export const UserProfile = () => {
               <Button colorScheme="teal" onClick={() => navigate(ruta.borrarCuenta)}>
                 Borrar cuenta
               </Button>
-              <Button colorScheme="teal" onClick={() => navigate(ruta.home)}>
+              {/* <Button colorScheme="teal" onClick={() => navigate(ruta.home)}>
                 {" "}
                 Volver
-              </Button>
+              </Button> */}
             </Stack>
           </Box>
         </Stack>

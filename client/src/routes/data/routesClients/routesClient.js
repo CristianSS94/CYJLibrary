@@ -13,4 +13,5 @@ export const ruta = {
   usuarios: "/allusers",
   otrousuario: "/oneuser",
   subirLibro: "/registerbook",
+  editarLibro: "/editbook",
 };
