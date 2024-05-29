@@ -59,3 +59,19 @@ export const allUsersReducer = (state = initialAllUsers, action) => {
       return state;
   }
 };
+
+const initialAllBooks = {
+  allBooks: null,
+};
+
+export const allBooksReducer = (state = initialAllBooks, action) => {
+  switch (action.type) {
+    case "UPDATE_ALLBOOKS":
+      return {
+        ...state,
+        allBooks: action.payload,
+      };
+    default:
+      return state;
+  }
+};

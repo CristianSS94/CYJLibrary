@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const mailer = require("../utils/nodemailer");
 require("dotenv").config();
 const { User, Book, Category, Message } = require("../models/models");
+const { Op } = require("sequelize");
 
 class booksControllers {
   createBook = async (req, res) => {
@@ -83,6 +84,37 @@ class booksControllers {
     } catch (error) {
       console.error("Error al editar el libro:", error);
       res.status(500).json({ error: "Error al editar el libro" });
+    }
+  };
+
+  getAllBooks = async (req, res) => {
+    try {
+      console.log(req.params);
+      const { user_id } = req.params;
+      const books = await Book.findAll({
+        where: {
+          user_id: {
+            [Op.ne]: user_id, // Excluir libros del usuario especificado
+          },
+        },
+        include: [
+          {
+            model: User,
+            as: "user",
+            attributes: ["user_name", "email"],
+          },
+          {
+            model: Category,
+            as: "category",
+            attributes: ["category_name"],
+          },
+        ],
+      });
+
+      res.status(200).json(books);
+    } catch (error) {
+      console.error("Error al obtener los libros:", error);
+      res.status(500).json({ error: "Error al obtener los libros" });
     }
   };
 }

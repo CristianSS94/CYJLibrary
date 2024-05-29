@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useAllUsers = () => {
   const user = useSelector((state) => state.auth.user);
-  const allUsers = useSelector((state) => state.getAllusers.allUsers);
+  const allUsers = useSelector((state) => state.getAllUsers.allUsers);
   const [spinnerActive, setSpinnerActive] = useState(false);
   const [searchUser, setSearchUser] = useState("");
   const navigate = useNavigate();

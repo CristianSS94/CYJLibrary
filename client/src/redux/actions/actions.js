@@ -24,3 +24,8 @@ export const updateAllUsers = (allUsersData) => ({
   type: "UPDATE_ALLUSERS",
   payload: allUsersData,
 });
+
+export const updateAllBooks = (allBooksData) => ({
+  type: "UPDATE_ALLBOOKS",
+  payload: allBooksData,
+});

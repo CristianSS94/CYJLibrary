@@ -20,7 +20,11 @@ export const UserLibrary = () => {
         </Heading>
       </Box>
       <Box sx={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-        {user && user.books.length > 0 ? user.books.map((elem) => <CardsBooks elem={elem} />) : <Text>Aun no has añadido ningún libro a la biblioteca</Text>}
+        {user && user.books.length > 0 ? (
+          user.books.map((elem) => <CardsBooks key={elem.book_id} elem={elem} />)
+        ) : (
+          <Text>Aun no has añadido ningún libro a la biblioteca</Text>
+        )}
       </Box>
     </Box>
   );

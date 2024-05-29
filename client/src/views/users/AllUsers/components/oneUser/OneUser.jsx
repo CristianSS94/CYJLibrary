@@ -2,14 +2,12 @@ import { Box, Button, Card, CardBody, CardFooter, CardHeader, Heading, SimpleGri
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ruta } from "../../../../../routes/data";
+import { CardsBooks } from "../../../../library/userLibrary/components/cardsBook/CardsBooks";
 
 export const OneUser = () => {
   const location = useLocation();
   const oneUser = location.state;
   const navigate = useNavigate();
-  // if (oneUser) {
-  //   console.log(oneUser);
-  // }
 
   return (
     <>
@@ -39,21 +37,7 @@ export const OneUser = () => {
         <CardFooter>
           {oneUser && oneUser.books.length > 0 ? (
             oneUser.books.map((elem) => {
-              return (
-                <SimpleGrid spacing={4} templateColumns="repeat(auto-fill, minmax(200px, 1fr))">
-                  <Card>
-                    <CardHeader>
-                      <Heading size="md"> Customer dashboard</Heading>
-                    </CardHeader>
-                    <CardBody>
-                      <Text>View a summary of all your customers over the last month.</Text>
-                    </CardBody>
-                    <CardFooter>
-                      <Button>View here</Button>
-                    </CardFooter>
-                  </Card>
-                </SimpleGrid>
-              );
+              return <CardsBooks elem={elem} hasDeleteButton={false} />;
             })
           ) : (
             <Box>
