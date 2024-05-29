@@ -1,2 +1,2 @@
-export { NavBooks } from "./navBooks/NavBooks";
-export { FooterBooks } from "./footerBooks/FooterBooks";
+export { NavbarApp } from "./navbar/Navbar";
+export { FooterApp } from "./footer/FooterApp";

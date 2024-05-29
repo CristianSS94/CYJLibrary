@@ -57,20 +57,8 @@ class usersControllers {
             as: "books",
             required: false,
           },
-          { model: User, as: "Chats1" },
-          { model: User, as: "Chats2" },
-          // {
-          //   model: Message,
-          //   as: "sentMessages",
-          //   required: false,
-          //   include: [{ model: User, as: "receiver", attributes: ["user_id", "email"] }],
-          // },
-          // {
-          //   model: Message,
-          //   as: "receivedMessages",
-          //   required: false,
-          //   include: [{ model: User, as: "sender", attributes: ["user_id", "email"] }],
-          // },
+          { model: Chat, as: "ChatsInitiador", required: false, include: [{ model: Message, as: "messages", required: false }] },
+          { model: Chat, as: "ChatsRecipient", required: false, include: [{ model: Message, as: "messages", required: false }] },
         ],
       });
       const passwordCompare = await bcrypt.compare(password, user.password);
@@ -131,20 +119,8 @@ class usersControllers {
             as: "books",
             required: false,
           },
-          { model: Chat, as: "Chats1", required: false, include: [{ model: Message, as: "messages", required: false }] },
-          { model: Chat, as: "Chats2", required: false, include: [{ model: Message, as: "messages", required: false }] },
-          // {
-          //   model: Message,
-          //   as: "sentMessages",
-          //   required: false,
-          //   include: [{ model: User, as: "receiver", attributes: ["user_id", "email"] }],
-          // },
-          // {
-          //   model: Message,
-          //   as: "receivedMessages",
-          //   required: false,
-          //   include: [{ model: User, as: "sender", attributes: ["user_id", "email"] }],
-          // },
+          { model: Chat, as: "ChatsInitiador", required: false, include: [{ model: Message, as: "messages", required: false }] },
+          { model: Chat, as: "ChatsRecipient", required: false, include: [{ model: Message, as: "messages", required: false }] },
         ],
       });
 

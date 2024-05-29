@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Stack } from "@chakra-ui/react";
 import React from "react";
 
-import { useUserRegister } from "./hooks/useUserRegister";
+import { useUserRegister } from "./hook/useUserRegister";
 
 export const UserRegister = () => {
   const { handleChange, handleSubmit, navigate, register, handleClick, show, msgError } = useUserRegister();

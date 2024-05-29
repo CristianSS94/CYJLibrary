@@ -2,11 +2,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useGetDataUser } from "../../../../../../utils";
+
 import { ruta } from "../../../../../../routes/data";
+import { useGetUser } from "../../../../../../hooks/useGetUser";
 
 export const useEditProfile = () => {
-  const { getDataUser } = useGetDataUser();
+  const { getDataUser } = useGetUser();
   const user = useSelector((state) => state.auth.user);
   const [editUser, setEditUser] = useState(user);
   const [show, setShow] = useState(false);

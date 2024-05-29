@@ -1,7 +1,7 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 
-export const FooterBooks = () => {
+export const FooterApp = () => {
   return (
     <Flex p="4" bg="teal.500" color="white">
       <p>

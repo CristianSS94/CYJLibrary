@@ -3,7 +3,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ruta } from "../../../routes/data";
-import { useGetDataUser } from "../../../utils";
 import { CardsBooks } from "./components/cardsBook/CardsBooks";
 
 export const UserLibrary = () => {

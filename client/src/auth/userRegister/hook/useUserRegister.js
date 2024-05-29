@@ -48,8 +48,6 @@ export const useUserRegister = () => {
           console.log(err.response.data);
           if (err.response.data.error?.errno === 1062 && err.response.data.error?.sqlMessage.includes("user.email")) {
             setMsgError("Email duplicado");
-          } else if (err.response.data.error?.errno === 1062 && err.response.data.error?.sqlMessage.includes("user.nickname")) {
-            setMsgError("Nombre de usuario duplicado");
           } else if (err.response.data.error?.errno === 1406) {
             setMsgError("Campo demasiado largo");
           } else if (err.response.data.message === "Correo no valido") {

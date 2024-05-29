@@ -3,12 +3,15 @@ import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../redux";
 
-export const useApp = () => {
+export const useGetToken = () => {
   const dispatch = useDispatch();
 
-  const getTokenUser = () => {
-    const token = localStorage.getItem("token");
+  const getLocalStorage = (item) => localStorage.getItem(item);
+  const saveLocalStorage = (item, data) => localStorage.setItem(item, data);
+  const delLocalStorage = (item) => localStorage.removeItem(item);
 
+  const getTokenUser = () => {
+    const token = getLocalStorage("token");
     if (token) {
       try {
         const decoded = jwtDecode(token);
@@ -27,5 +30,5 @@ export const useApp = () => {
     }
   };
 
-  return { dispatch, getAllCategories, getTokenUser };
+  return { getTokenUser, delLocalStorage, saveLocalStorage, getLocalStorage };
 };

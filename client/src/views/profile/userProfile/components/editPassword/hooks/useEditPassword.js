@@ -2,11 +2,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useGetDataUser } from "../../../../../../utils";
+
 import { ruta } from "../../../../../../routes/data";
+import { useGetUser } from "../../../../../../hooks/useGetUser";
 
 export const useEditPassword = () => {
-  const { getDataUser } = useGetDataUser();
+  const { getDataUser } = useGetUser();
 
   //Traigo al usuario logado
   const user = useSelector((state) => state.auth.user);

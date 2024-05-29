@@ -1,4 +1,3 @@
-import React, { useRef, useState } from "react";
 import { EditIcon } from "@chakra-ui/icons";
 import {
   AlertDialog,
@@ -15,19 +14,20 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import { urlBooks } from "../../../../../../../routes/data/routesServer/routesServer";
 import axios from "axios";
-import { useGetDataUser } from "../../../../../../../utils";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ruta } from "../../../../../../../routes/data";
+import { urlBooks } from "../../../../../../../routes/data/routesServer/routesServer";
+import { useGetUser } from "../../../../../../../hooks/useGetUser";
 
 export const EditBook = ({ elem }) => {
   const user = useSelector((state) => state.auth.user);
   const categories = useSelector((state) => state.getCategories.categories);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
-  const { getDataUser } = useGetDataUser();
+  const { getDataUser } = useGetUser();
   const navigate = useNavigate();
 
   const [editedBook, setEditedBook] = useState(elem);

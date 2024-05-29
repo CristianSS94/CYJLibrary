@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../redux";
+import { useGetAllUsers, useGetCategories } from "../../../hooks";
 
 export const useUserLogin = () => {
   //Objeto inicial para iniciar sesión
@@ -18,6 +19,8 @@ export const useUserLogin = () => {
   const [loginData, setLoginData] = useState(initialValue);
   const [msgError, setMsgError] = useState("");
   const navigate = useNavigate();
+  const { getAllCategories } = useGetCategories();
+  const { getAllUsersData } = useGetAllUsers();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,9 +33,10 @@ export const useUserLogin = () => {
     axios
       .post("http://localhost:3000/users/loginuser", loginData)
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("token", res.data.token);
         dispatch(login(res.data.user));
+        getAllCategories();
+        getAllUsersData();
         navigate("/");
       })
       .catch((err) => {

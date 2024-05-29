@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
-
 import { RoutesBooks } from "./routes/RoutesBooks";
-import { useApp } from "./hooks/useApp";
 import { ChakraProvider } from "@chakra-ui/react";
+import { useGetAllUsers, useGetCategories, useGetToken } from "./hooks";
+import { useDispatch } from "react-redux";
 
 const App = () => {
-  const { dispatch, getAllCategories, getTokenUser } = useApp();
+  const dispatch = useDispatch();
+  const { getTokenUser } = useGetToken();
+  const { getAllCategories } = useGetCategories();
+  const { getAllUsersData } = useGetAllUsers();
 
   useEffect(() => {
     getTokenUser();
     getAllCategories();
+    getAllUsersData();
   }, [dispatch]);
 
   return (

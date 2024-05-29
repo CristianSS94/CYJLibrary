@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateUser } from "../../../redux/actions/actions";
 import { urlUsers } from "../routes/data/routesServer/routesServer";
+import { updateUser } from "../redux";
 
 export const useGetUser = () => {
   const user = useSelector((state) => state.auth.user);

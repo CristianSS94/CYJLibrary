@@ -32,10 +32,10 @@ CREATE TABLE book (
 
 CREATE TABLE chat (
   chat_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  user1_id INT UNSIGNED NOT NULL,
-  user2_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY (user1_id) REFERENCES user(user_id),
-  FOREIGN KEY (user2_id) REFERENCES user(user_id)
+  initiator_id INT UNSIGNED NOT NULL,
+  recipient_id INT UNSIGNED NOT NULL,
+  FOREIGN KEY (initiator_id) REFERENCES user(user_id),
+  FOREIGN KEY (recipient_id) REFERENCES user(user_id)
 );
 
 CREATE TABLE message (
@@ -48,15 +48,7 @@ CREATE TABLE message (
   FOREIGN KEY (sender_id) REFERENCES user(user_id)
 );
 
--- CREATE TABLE message (
---   message_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
---   user_sender_id INT UNSIGNED NOT NULL,
---   user_receiver_id INT UNSIGNED NOT NULL,
---   content TEXT NOT NULL,
---   sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---   FOREIGN KEY (user_sender_id) REFERENCES user(user_id),
---   FOREIGN KEY (user_receiver_id) REFERENCES user(user_id)
--- );
+
 
 INSERT INTO category (category_name) VALUES
   ('Fantasía'),

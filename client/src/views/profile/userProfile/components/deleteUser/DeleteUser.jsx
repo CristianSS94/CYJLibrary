@@ -2,7 +2,7 @@ import { Box, Button, FormControl, FormLabel, Input, InputGroup, InputRightEleme
 import React from "react";
 
 import { ruta } from "../../../../../routes/data";
-import { useDeleteUser } from "./hooks/useDeleteUser";
+import { useDeleteUser } from "./hook/useDeleteUser";
 
 export const DeleteUser = () => {
   const { userPassword, verifyPassword, show, handleChange, handleClick, handleSubmitPassword, deleteUser, navigate } = useDeleteUser();

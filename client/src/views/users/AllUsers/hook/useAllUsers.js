@@ -1,28 +1,13 @@
-import axios from "axios";
 import { useMemo, useState } from "react";
-import { urlUsers } from "../../../../routes/data";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const useAllUsers = () => {
-  const [allUsersData, setAlluserData] = useState(null);
+  const user = useSelector((state) => state.auth.user);
+  const allUsers = useSelector((state) => state.getAllusers.allUsers);
   const [spinnerActive, setSpinnerActive] = useState(false);
   const [searchUser, setSearchUser] = useState("");
   const navigate = useNavigate();
-
-  const getAllUsersData = () => {
-    setSpinnerActive(true);
-    axios
-      .get(`${urlUsers}/getallusers`)
-      .then((res) => {
-        setAlluserData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setSpinnerActive(false);
-      });
-  };
 
   const goToProfile = (elem) => {
     navigate("/oneUser", { state: elem });
@@ -33,24 +18,16 @@ export const useAllUsers = () => {
   };
 
   const allUsersFiltered = useMemo(() => {
-    let _dataFiltered = allUsersData;
+    let _dataFiltered = allUsers;
 
     if (searchUser) {
       _dataFiltered = _dataFiltered?.filter((e) => e.user_name.toLowerCase().includes(searchUser.toLowerCase()));
     }
 
+    _dataFiltered = _dataFiltered.filter((e) => e.user_id !== user.user_id);
+
     return _dataFiltered;
   });
 
-  return { getAllUsersData, allUsersFiltered, goToProfile, handleChangue, searchUser, spinnerActive };
+  return { allUsersFiltered, goToProfile, handleChangue, searchUser, spinnerActive };
 };
-
-/*
-
-src={elem.img === null ? "/images/users/usuario_defecto.png" : `${elem.img}`}
-
-key={elem.user_id}
-
-{elem.user_name} {elem.last_name}
-
-*/

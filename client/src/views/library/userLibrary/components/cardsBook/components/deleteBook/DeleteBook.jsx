@@ -1,3 +1,4 @@
+import { DeleteIcon } from "@chakra-ui/icons";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -8,13 +9,12 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
-import { useGetDataUser } from "../../../../../../../utils";
 import axios from "axios";
-import { DeleteIcon } from "@chakra-ui/icons";
+import React, { useRef } from "react";
+import { useGetUser } from "../../../../../../../hooks/useGetUser";
 
 export const DeleteBook = ({ elem }) => {
-  const { getDataUser } = useGetDataUser();
+  const { getDataUser } = useGetUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
 

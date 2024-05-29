@@ -11,22 +11,6 @@ export const UserInbox = () => {
   const user = useSelector((state) => state.auth.user);
   const allChats = user.Chats1.concat(user.Chats2);
 
-  const getAllUsersData = () => {
-    setSpinnerActive(true);
-    axios
-      .get(`${urlUsers}/getallusers`)
-      .then((res) => {
-        console.log(res.data);
-        setAlluserData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setSpinnerActive(false);
-      });
-  };
-
   useEffect(() => {
     getAllUsersData();
   }, []);

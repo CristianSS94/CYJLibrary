@@ -2,13 +2,14 @@ import { Link as ChakraLink, Flex, Spacer, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
+import { useGetToken } from "../../../../hooks/useGetToken";
 import { logout } from "../../../../redux";
 import { ruta } from "../../../../routes/data";
-import { delLocalStorage } from "../../../../utils";
 
 export const NavBarLogged = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { delLocalStorage } = useGetToken();
 
   const logOut = () => {
     delLocalStorage("token");

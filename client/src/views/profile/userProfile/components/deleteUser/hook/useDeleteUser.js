@@ -1,18 +1,19 @@
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
-import { logout } from "../../../../../../redux";
-import { delLocalStorage } from "../../../../../../utils";
 import { useState } from "react";
+import { useGetToken } from "../../../../../../hooks/useGetToken";
+import { logout } from "../../../../../../redux";
 import { ruta } from "../../../../../../routes/data";
 
 export const useDeleteUser = () => {
   //Traigo al usuario logado
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const { delLocalStorage } = useGetToken();
 
   const initialPassword = {
     password: "",
