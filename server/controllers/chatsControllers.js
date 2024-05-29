@@ -4,9 +4,9 @@ const mailer = require("../utils/nodemailer");
 require("dotenv").config();
 const { User, Book, Message, Category } = require("../models/models");
 
-class messagesControllers {
-  createMessage = async (req, res) => {};
-  deleteMessage = async (req, res) => {};
+class chatsControllers {
+  createChat = async (req, res) => {};
+  deleteChat = async (req, res) => {};
 }
 
-module.exports = new messagesControllers();
+module.exports = new chatsControllers();

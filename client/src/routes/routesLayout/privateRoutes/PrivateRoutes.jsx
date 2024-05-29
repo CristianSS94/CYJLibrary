@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { ConfirmateUser, UserLogin } from "../../../auth";
-import { UserInbox } from "../../../views/users";
+
 import { AllUsers } from "../../../views/users/AllUsers/AllUsers";
 import { OneUser } from "../../../views/users/AllUsers/components/oneUser/OneUser";
 import { ruta } from "../../data";
@@ -10,6 +10,7 @@ import { CreateBook } from "../../../views/library/userLibrary/components/create
 import { DeleteUser, EditPassword, EditProfile } from "../../../views/profile/userProfile/components";
 import { UserLibrary } from "../../../views/library/userLibrary/UserLibrary";
 import { UserProfile } from "../../../views/profile/userProfile/UserProfile";
+import { UserInbox } from "../../../views/chat/userInbox/UserInbox";
 
 export const PrivateRoutes = () => {
   return (

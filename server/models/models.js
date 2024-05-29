@@ -112,6 +112,60 @@ const Book = sequelize.define(
   }
 );
 
+const Chat = sequelize.define(
+  "Chat",
+  {
+    chat_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    user1_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+    user2_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+  },
+  {
+    tableName: "chat",
+    timestamps: false,
+  }
+);
+
+// const Message = sequelize.define(
+//   "Message",
+//   {
+//     message_id: {
+//       type: DataTypes.INTEGER.UNSIGNED,
+//       primaryKey: true,
+//       autoIncrement: true,
+//     },
+//     user_sender_id: {
+//       type: DataTypes.INTEGER.UNSIGNED,
+//       allowNull: false,
+//     },
+//     user_receiver_id: {
+//       type: DataTypes.INTEGER.UNSIGNED,
+//       allowNull: false,
+//     },
+//     content: {
+//       type: DataTypes.TEXT,
+//       allowNull: false,
+//     },
+//     sent_at: {
+//       type: DataTypes.DATE,
+//       defaultValue: Sequelize.NOW,
+//     },
+//   },
+//   {
+//     tableName: "message",
+//     timestamps: false,
+//   }
+// );
+
 const Message = sequelize.define(
   "Message",
   {
@@ -120,11 +174,11 @@ const Message = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    user_sender_id: {
+    chat_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
-    user_receiver_id: {
+    sender_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
@@ -146,10 +200,23 @@ const Message = sequelize.define(
 User.hasMany(Book, { foreignKey: "user_id", as: "books" });
 Book.belongsTo(User, { foreignKey: "user_id", as: "user" });
 
-User.hasMany(Message, { foreignKey: "user_sender_id", as: "sent_messages" });
-User.hasMany(Message, { foreignKey: "user_receiver_id", as: "received_messages" });
+// User.hasMany(Message, { foreignKey: "user_sender_id", as: "sentMessages" });
+// User.hasMany(Message, { foreignKey: "user_receiver_id", as: "receivedMessages" });
+
+User.hasMany(Chat, { foreignKey: 'user1_id', as: 'Chats1' });
+User.hasMany(Chat, { foreignKey: 'user2_id', as: 'Chats2' });
+
+
+Chat.belongsTo(User, { foreignKey: 'user1_id' });
+Chat.belongsTo(User, { foreignKey: 'user2_id' });
+
+Chat.hasMany(Message, { foreignKey: "chat_id", as: "messages" });
+Message.belongsTo(Chat, { foreignKey: "chat_id", as: "chat" });
+
+// Message.belongsTo(User, { as: "sender", foreignKey: "user_sender_id" });
+// Message.belongsTo(User, { as: "receiver", foreignKey: "user_receiver_id" });
 
 Category.hasMany(Book, { foreignKey: "category_id", as: "books" });
 Book.belongsTo(Category, { foreignKey: "category_id", as: "category" });
 
-module.exports = { User, Book, Message, Category, sequelize };
+module.exports = { User, Book, Message, Category, Chat, sequelize };
