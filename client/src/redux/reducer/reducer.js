@@ -43,3 +43,19 @@ export const categoriesReducer = (state = initialCategories, action) => {
       return state;
   }
 };
+
+const initialAllUsers = {
+  allUsers: null,
+};
+
+export const allUsersReducer = (state = initialAllUsers, action) => {
+  switch (action.type) {
+    case "UPDATE_ALLUSERS":
+      return {
+        ...state,
+        allUsers: action.payload,
+      };
+    default:
+      return state;
+  }
+};

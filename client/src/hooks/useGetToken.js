@@ -2,8 +2,6 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../redux";
-import { updateCategories } from "../redux/actions/actions";
-import { urlCategories } from "../routes/data/routesServer/routesServer";
 
 export const useApp = () => {
   const dispatch = useDispatch();
@@ -27,17 +25,6 @@ export const useApp = () => {
         console.log("Error al decodificar el token:", error);
       }
     }
-  };
-
-  const getAllCategories = () => {
-    axios
-      .get(`${urlCategories}/allCategories`)
-      .then((res) => {
-        dispatch(updateCategories(res.data));
-      })
-      .catch((err) => {
-        console.log("Error al actualizar al usuario:", err);
-      });
   };
 
   return { dispatch, getAllCategories, getTokenUser };

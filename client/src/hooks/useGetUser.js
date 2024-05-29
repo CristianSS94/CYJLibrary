@@ -2,14 +2,15 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateUser } from "../../../redux/actions/actions";
+import { urlUsers } from "../routes/data/routesServer/routesServer";
 
-export const useGetDataUser = () => {
+export const useGetUser = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   const getDataUser = () => {
     axios
-      .get(`http://localhost:3000/users/userdata/${user.user_id}`)
+      .get(`${urlUsers}/userdata/${user.user_id}`)
       .then((res) => {
         dispatch(updateUser(res.data.user));
       })
@@ -17,6 +18,5 @@ export const useGetDataUser = () => {
         console.log("Error al actualizar al usuario:", err);
       });
   };
-
   return { getDataUser };
 };
