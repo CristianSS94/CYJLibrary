@@ -27,7 +27,7 @@ export const PrivateHome = () => {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ display: "flex", padding: "1rem", gap: "1rem", flexWrap: "wrap" }}>
       {allBooks &&
         allBooks.map((elem) => {
           return <CardsBooks key={elem.book_id} elem={elem} hasDeleteButton={false} />;

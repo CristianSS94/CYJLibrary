@@ -22,7 +22,7 @@ export const CardsBooks = ({ elem, hasDeleteButton = true }) => {
   };
 
   return (
-    <Card bg="teal.100" key={elem.book_id} width={{ xl: "32%" }}>
+    <Card bg="teal.100" key={elem.book_id} width={{ xl: "32%" }} p>
       <CardHeader>
         <Heading size="md">Título: {elem.title}</Heading>
         <Text>Categoría: {getNameCategory(elem.category_id)}</Text>
@@ -38,7 +38,7 @@ export const CardsBooks = ({ elem, hasDeleteButton = true }) => {
         <Text>author{elem.author}</Text>
         <Text>year_published{elem.year_published}</Text>
       </CardBody>
-      <CardFooter sx={{ display: "flex", justifyContent: "space-evenly" }}>
+      <CardFooter sx={{ display: "flex", gap: "1rem" }}>
         {hasDeleteButton && (
           <>
             <DeleteBook elem={elem} />

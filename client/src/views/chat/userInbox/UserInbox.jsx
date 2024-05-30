@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Button, Card } from "@chakra-ui/react";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -8,23 +8,29 @@ export const UserInbox = () => {
   console.log(allUsers);
   console.log(user);
 
+  const nameUserRecipient = (id) => {
+    const nameRecipient = allUsers.find((e) => e.user_id === id);
+    return nameRecipient ? `${nameRecipient.user_name} ${nameRecipient.last_name}` : "Desconocido";
+  };
+
   return (
     <Box>
       <h1>Mis chats</h1>
       <Box>
-        {/* {allUsersData &&
-          (allChats ?? []).map((elem) => {
-            const user1 = allUsersData.find((user) => user.user_id === elem.user1_id);
-            const user2 = allUsersData.find((user) => user.user_id === elem.user2_id);
-            if (!user1 || !user2) return null;
-            const otherUser = user1.user_id === user.user_id ? user2 : user1;
-            return (
-              <Card key={elem.chat_id}>
-                <CardHeader> chat con {otherUser.user_name}</CardHeader>
-                <Text>{elem}</Text>
-              </Card>
-            );
-          })} */}
+        <h6>Chat Iniciados</h6>
+        <Card>
+          {user?.ChatsInitiador.map((chat) => {
+            return <div>Chat con {nameUserRecipient(chat.recipient_id)}</div>;
+          })}
+          <Button>Abrir Chat</Button>
+        </Card>
+      </Box>
+      <Box>
+        <h6>Chat Recibidos</h6>
+        {user?.ChatsRecipient.map((chat) => {
+          return <div>Chat con {nameUserRecipient(chat.initiador_id)}</div>;
+        })}
+        <Button>Abrir Chat</Button>
       </Box>
     </Box>
   );

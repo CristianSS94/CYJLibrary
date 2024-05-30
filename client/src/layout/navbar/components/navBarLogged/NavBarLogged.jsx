@@ -18,7 +18,7 @@ export const NavBarLogged = () => {
   };
 
   return (
-    <Flex p="4" bg="teal.500" color="white">
+    <Flex p="4" bg="teal.500" color="white" width="100%">
       <ChakraLink as={RouterLink} to={ruta.home}>
         <Text fontSize="xl">CYJLibrary</Text>
       </ChakraLink>
