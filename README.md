@@ -11,6 +11,6 @@ Frontend
 
 Backend
 ---------------
-NodeJS + Express
-MySQL
-Sequelize
+- NodeJS + Express
+- MySQL
+- Sequelize
